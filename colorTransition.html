@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faded Squiggle Animation</title>
+    <style>
+        .waveContainer {
+            width: 100px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .wave {
+            width: 460px;
+            height: 160px;
+            fill: none;
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 0 60 530 60; 
+            stroke: white;
+            mask: url(#waveMask);
+            animation: 
+            wave-move 1s linear infinite, 
+            dash-shift 1s linear infinite; 
+        }
+
+        @keyframes wave-move { 
+            0% { transform: translateX(-12px); }
+            100% { transform: translateX(-112px); }
+        }
+
+        @keyframes dash-shift {
+            0% { stroke-dashoffset: 0;}
+            100% { stroke-dashoffset: -200px;}
+        }
+    </style>
+</head>
+<body>
+    <div class="waveContainer">
+        <svg viewBox="0 0 300 160">
+            <defs>
+
+                <linearGradient id="gradient" x1="0%" y1="50%" x2="100%" y2="50%" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#ffffff00"/>
+                    <stop offset="40%" stop-color="#bb6bd9"/>
+                    <stop offset="70%" stop-color="#9045a0"/>
+                    <stop offset="80%" stop-color="#4c2d86"/>
+                </linearGradient>
+
+                <mask id="waveMask">
+                    <path class="wave" d="M 0 80 Q 25 0, 50 80 T 100 80 T 150 80 T 200 80 T 250 80 T 300 80 T 350 80 T 400 80" 
+                        stroke="white" stroke-width="12" stroke-linecap="round" stroke-dasharray="0 60 530 60"
+                        stroke-dashoffset="0" fill="none" />
+                </mask>
+            </defs>
+            <rect x="0" y="0" width="300" height="160" fill="url(#gradient)" mask="url(#waveMask)" />
+        </svg>
+    </div>
+</body>
+</html>
